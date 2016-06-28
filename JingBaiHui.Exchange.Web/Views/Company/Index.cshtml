@@ -1,0 +1,41 @@
+﻿@model JingBaiHui.Exchange.Model.Tenant
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>兑换登录页</title>
+    <script src="/Scripts/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(function () {
+        $("#btnLogin").click(function () {
+            var CardNumber = $.trim($("#CardNumber").val());
+            var PassWord = $.trim($("#PassWord").val());
+            if (CardNumber == "" || PassWord == "") {
+                alert("请填写卡号和密码！");
+                return false;
+            }
+            //var currentUrl = window.location.href;
+            //var pinyin = currentUrl.substr(currentUrl.lastIndexOf("/") + 1);
+            //pinyin = pinyin.substr(0, pinyin.lastIndexOf('.'));
+
+            $.post("/Home/GiftCardLogin", { CardNumber: CardNumber, PassWord: PassWord, CompanyPinYin: "@(ViewBag.TenantLetter)" }, function (data) {
+                if (data.Status) {
+                    window.location.href = "/Company/ChooseProgram";
+                }
+                else {
+                    alert(data.Msg);
+                    return false;
+                }
+            }, "json");
+        });
+    })
+    </script>
+</head>
+<body>
+  @Html.Raw(Model.TenantLoginPage) 
+    
+</body>
+</html>
+
+

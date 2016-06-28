@@ -1,0 +1,511 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>礼品管理</title>
+    <script src="/Scripts/easyui.js"></script>
+    <script src="/Scripts/common.js"></script>
+    <script src="/Scripts/editor.js"></script>
+    <script src="/Scripts/ajaxfileupload.js"></script>
+</head>
+<body style="margin: 0px; padding: 0px; border: 0 none;">
+    <div class="searchdiv">
+        <fieldset>
+            <legend>信息查询</legend>
+            <form id="fmSearch" method="post">
+                <table>
+                    <tr>
+                        <td style="width: 150px; text-align: right;">产品名称:</td>
+                        <td style="width: 150px;">
+                            <input type="text" name="ProductName" placeholder="支持模糊查询" /></td>
+                        <td>
+                            <a id="btnSearch" href="###" class="easyui-linkbutton"
+                                data-options="iconCls:'icon-search'">&nbsp;&nbsp;查&nbsp;&nbsp;询&nbsp;&nbsp;
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </fieldset>
+    </div>
+    <table id="grid" style="width: 100%;" class="easyui-datagrid" data-options="
+                title: '礼品信息',
+                iconCls: 'icon-view',
+                nowrap: true,
+                autoRowHeight: true,
+                striped: true,
+                collapsible: true,
+                pagination: true,
+                pageSize: 15,
+                pageList: [10, 15, 20],
+                rownumbers: true,
+                singleSelect: true,
+                sortOrder: 'asc',
+                remoteSort: false">
+        <thead>
+            <tr>
+                <th data-options="field: 'Id', align: 'center', hidden: true">主键</th>
+                <th data-options="field: 'ParentName', align: 'center'">所属分类</th>
+                <th data-options="field: 'ProductName', align: 'center',sortable:true">产品名称</th>
+                <th data-options="field: 'ProductImgUrl', align: 'center',formatter:ShowImgFormater">产品图片</th>
+                <th data-options="field: 'Price', align: 'center'">价格</th>
+                <th data-options="field: 'CreateTimeStr', align: 'center'">记录创建时间</th>
+            </tr>
+        </thead>
+    </table>
+
+    <div style="text-align: center; width: 100%; color: red; display: none;" id="emptymsgdiv">没有查询到相关数据</div>
+
+    <div id="DivAdd" class="easyui-dialog" style="width: 1120px; height: 460px; padding: 10px 10px 10px 0px;"
+        closed="true" resizable="true" modal="true" data-options="iconCls: 'icon-edit',buttons: '#dlg-buttons'">
+
+        <form id="fmDetail" method="post" novalidate enctype="multipart/form-data">
+            <input name="Id" type="hidden" value="" />
+            <input type="hidden" value="drerrererer" name="ProductIds" />
+            <table style="width: 100%; height: 100%;">
+                <tr>
+                    <td style="width: 100px; text-align: right;">公司:</td>
+                    <td style="width: 150px;">
+                        <select id="TenantId" name="TenantId">
+                            <option value="">==请选择==</option>
+                            @{ var list = JingBaiHui.Exchange.BLL.TenantBLL.Instance.GetList(null); }
+                            @foreach (var item in list)
+                            {
+                                <option value="@(item.Id)" >@(item.TenantName)</option>
+                            }
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 100px; text-align: right;">产品名称:</td>
+                    <td style="width: 150px;">
+                        <input type="text" class="easyui-validatebox" name="ProductName" required="required" />
+                    </td>
+                    <td style="width: 250px;">&nbsp;&nbsp;所属类别: 
+                        <select id="ParentId" name="ParentId">
+                            <option selected="selected"  value="@(Guid.Empty)">==请选择==</option>
+                            @{ var productList = JingBaiHui.Exchange.BLL.ProductBLL.Instance.GetList(null); }
+                            @foreach (var item in productList)
+                            {
+                                <option value="@(item.Id)" >@(item.ProductName)</option>
+                            }
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 100px; text-align: right;">价格:</td>
+                    <td style="width: 150px;">
+                        <input type="text" class="easyui-numberbox" name="Price" precision="2" required="required" data-options="min:1" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 100px; text-align: right;">产品图片:</td>
+                    <td style="width: 150px;">
+                        <input type="button" value="上  传" id="btnupload" />
+                        <input type="file" name="ProductImgUrl" id="ProductImgUrl" accept=".gif,.jpeg,.jpg,.png" style="width: 250px; display: none;" onchange="CheckFile()" />
+                        &nbsp;&nbsp;
+                        <label id="uploadMsg" style="color: red;"></label>
+                    </td>
+                </tr>
+                <tr id="yulan_tr" style="display: none;">
+                    <td style="width: 100px; text-align: right;">预览:</td>
+                    <td colspan="3">
+                        <div id="yulan_div">
+                            <div style="float: left; margin-left: 10px; position: relative;">
+                                <div style="overflow: hidden; width: 200px; height: 180px; border: 1px solid rgb(235, 235, 235);">
+                                    <img name="ImgUrl" id="ImgUrl" src="" style="visibility: visible; width: 200px; height: 150px; margin-left: 0px; margin-top: 15px;">
+                                </div>
+                            </div>
+                        </div>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 100px; text-align: right;">描述:</td>
+                    <td colspan="3">
+                        <textarea id="Description" cols="100" rows="8" style="width: 1000px; height: 250px; visibility: hidden;"></textarea>
+                    </td>
+                </tr>
+            </table>
+        </form>
+
+        <div style="text-align: center; padding-top: 10px" id="DivAddToolBar">
+            <a href="javascript:void(0)" class="easyui-linkbutton" id="btnAddOK" iconcls="icon-ok" onclick="SaveEntity()">确定</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-cancel" onclick="javascript:$('#DivAdd').dialog('close')">关闭</a>
+        </div>
+    </div>
+</body>
+</html>
+
+<script type="text/javascript">
+
+    var editor1;
+    KindEditor.ready(function (K) {
+        editor1 = K.create('#Description', {
+            cssPath: '/Scripts/kindeditor-4.1.10-zh-CN/kindeditor-4.1.10/plugins/code/prettify.css',
+            uploadJson: '/Scripts/kindeditor-4.1.10-zh-CN/kindeditor-4.1.10/asp.net/upload_json.ashx',
+            fileManagerJson: '/Scripts/kindeditor-4.1.10-zh-CN/kindeditor-4.1.10/asp.net/file_manager_json.ashx',
+            allowFileManager: true
+        });
+        prettyPrint();
+    });
+
+    $(function () {
+        jQuery("#btnupload").click(function () {
+            jQuery("#ProductImgUrl").click();
+        });
+    })
+
+    //上传图片
+    function CheckFile() {
+        var f = document.getElementById("ProductImgUrl");
+        if (f.value == "") {
+            $("#uploadMsg").html("请上传图片");
+            return false;
+        }
+        else {
+            if (!/\.(gif|jpg|jpeg|png|GIF|JPG|PNG)$/.test(f.value)) {
+                $("#uploadMsg").html("图片类型必须是.gif,jpeg,jpg,png中的一种");
+                return false;
+            }
+        }
+        //检测上传文件的大小        
+        var isIE = /msie/i.test(navigator.userAgent) && !window.opera;
+        var fileSize = 0;
+        if (isIE && !f.files) {
+            var filePath = f.value;
+            var fileSystem = new ActiveXObject("Scripting.FileSystemObject");
+            var file = fileSystem.GetFile(filePath);
+            fileSize = file.Size;
+        } else {
+            fileSize = f.files[0].size;
+        }
+
+        var size = fileSize / 1024 * 1024;
+
+        if (size > (1024 * 1024 * 2)) {
+            $("#uploadMsg").html("图片大小不能超过2M");
+            return false
+        }
+        $.ajaxFileUpload
+            (
+                {
+                    url: '/Admin/Product/UploadImg', //用于文件上传的服务器端请求地址
+                    type: 'post',
+                    secureuri: false, //一般设置为false
+                    fileElementId: 'ProductImgUrl', //文件上传空间的id属性  <input type="file" id="file" name="file" />
+                    dataType: 'json', //返回值类型 一般设置为json
+                    success: function (data, status)  //服务器成功响应处理函数
+                    {
+                        if (data.msg == "success") {
+                            //$("#imgshow").attr("src", data.imgurl).show();
+                            $("#yulan_tr").show();
+                            //$("#ImgUrl").val(data.imgurl);
+
+                            var htmlstr = ' <div style="float: left; margin-left: 10px;position: relative;">'
+                   + '<div'
+                           + ' style="overflow: hidden; width: 200px; height: 180px; border: 1px solid rgb(235, 235, 235);">' + ' <img name="ImgUrl" id="ImgUrl" src="' + data.imgurl + '"' + 'style="visibility: visible; width: 200px; height: 150px; margin-left: 0px; margin-top: 15px;" />'
+                    + '</div>'
+                    + '</div>';
+                            $("#yulan_div").html(htmlstr);
+
+                            $("#uploadMsg").html("");
+                            return true;
+                        }
+                        else {
+                            $("#uploadMsg").html(data.error);
+                            return false;
+                        }
+                    },
+                    error: function (data, status, e)//服务器响应失败处理函数
+                    {
+                        alert(e);
+                    }
+                }
+            )
+    }
+
+    //保存
+    function SaveEntity() {
+        $('#fmDetail').form('submit', {
+            url: "/Product/Save",
+            onSubmit: function (param) {                //提交时触发
+                var ProductImgUrl;
+                var flag = $(this).form('validate');    //是否通过验证 
+                if (flag) {
+                    var TenantId = $("#TenantId").val();
+                    if (TenantId == '') {
+                        alert("必须选择公司！");
+                        flag = false;
+                    }
+                    ProductImgUrl = $("#ImgUrl").attr("src");
+                    if (ProductImgUrl == "") {
+                        alert("必须上传产品图片！");
+                        flag = false;
+                    }
+                }
+                param.ProductImgUrl = ProductImgUrl;
+                param.Description = editor1.html();
+                return flag;
+            },
+            success: function (res) {
+                res = JSON.parse(res);
+                if (res.Status) {
+                    $.messager.show({
+                        title: '操作提示',
+                        msg: '<img src="/Content/images/jingbaihui/ok.png" />' + '保存成功!',
+                        showType: 'show'
+                    });
+                    $('#DivAdd').dialog('close');         //关闭弹出框
+                    $('#fmDetail').form('clear');              //清除表单数据。
+                    $('#btnSearch').click(); //重新加载数据
+                }
+                else {
+                    $.messager.show({
+                        title: '保存失败!',
+                        msg: '<div class="messager-icon messager-error"></div>' + res.Msg,
+                        showType: 'fade'
+                    });
+                    return false;
+                }
+            }
+        })
+    }
+    //删除
+    function Delete() {
+        $.messager.confirm("操作提示", "您确定删除这条数据吗？", function (data) {
+            if (data) {
+                var row = $('#grid').datagrid('getSelected'); //获取选中行
+                if (!row) {                                       //没有选中行
+                    $.messager.alert('提示', '请选择一行进行操作!', 'info');
+                    return false;
+                }
+
+                $.ajax({
+                    url: "/Product/Delete",
+                    type: "POST",
+                    data: { "Id": row["Id"] },
+                    success: function (res) {
+                        if (res.Status) {
+                            $.messager.show({
+                                title: '操作提示',
+                                msg: '删除成功!',
+                                timeout: 2000,
+                                showType: 'show'
+                            });
+                            $('#btnSearch').click();
+                        }
+                        else {
+                            $.messager.show({
+                                title: '删除失败！',
+                                msg: '<div class="messager-icon messager-error"></div>' + res.Msg,
+                                showType: 'fade'
+                            });
+                            return false;
+                        }
+                    },
+                    error: function (error) {
+                        alert(JSON.stringify(error));
+                    }
+                })
+            }
+        });
+
+
+    }
+    //添加显示弹框
+    function ShowAddDialog() {
+        $('#fmDetail').form('load', {
+            Id: '',
+            TenantId: '',
+            ProductName: '',
+            Price: '0',
+            ProductImgUrl: '',
+            ParentId:'@(Guid.Empty)'
+        });
+        
+        $("#yulan_tr").hide();
+
+        $('#DivAdd').dialog({
+            title: '增加',
+            iconCls: 'icon-add'
+        }).dialog('open');
+    }
+
+    function ShowEditOrViewDialog(view) {
+        var row = $('#grid').datagrid('getSelected'); //获取选中行
+        if (!row) {                                       //没有选中行
+            $.messager.alert('提示', '请选择一行进行操作!', 'info');
+            return false;
+        }
+
+        //取值赋值 
+        $.ajax({
+            url: "/Product/Get",
+            type: "POST",
+            dataType: "json",
+            data: { "Id": row["Id"] },
+            success: function (res) {
+                $('#fmDetail').form('load', {
+                    Id: res.Id,
+                    TenantId: res.TenantId,
+                    ProductName: res.ProductName,
+                    ParentId: res.ParentId,
+                    Price: res.Price
+                });
+                editor1.html(res.Description);
+                $("#ImgUrl").attr("src", res.ProductImgUrl);
+                $("#yulan_tr").show();
+
+                var title = "编辑";
+                var iconinfo = "icon-edit";
+                if (view != undefined) {
+                    $("#DivAddToolBar").hide();
+                    title = "查看信息";
+                    iconinfo = "icon-search";
+                }
+                else {
+                    $("#DivAddToolBar").show();
+                    title = "修改信息";
+                    iconinfo = "icon-edit";
+                }
+                $('#DivAdd').dialog({ iconCls: iconinfo, title: title }).dialog('open');
+
+            },
+            error: function (error) {
+                alert(JSON.stringify(error));
+            }
+        });
+    }
+
+    function InitGrid(queryData) {
+        $("#grid").datagrid("uncheckAll").datagrid({
+            url: '/Product/GetList',
+            title: '礼品卡信息',
+            iconCls: 'icon-view',
+            // height: 650,
+            //width: function () { return document.body.clientWidth * 0.5; },
+            nowrap: true,
+            autoRowHeight: true,
+            striped: true,
+            collapsible: true,
+            pagination: true,
+            pageSize: 15,
+            pageList: [10, 15, 20],
+            rownumbers: true,
+            singleSelect: true,
+            sortOrder: 'asc',
+            remoteSort: false,
+            idField: 'Id',
+            queryParams: queryData,  //异步查询的参数
+            onLoadSuccess: function (data) {
+                if (data.total == 0) {
+                    //添加一个新数据行，第一列的值为你需要的提示信息，然后将其他列合并到第一列来，注意修改colspan参数为你columns配置的总列数
+                    //$(this).datagrid('appendRow', { Skt_Factory_Name: '<div style="text-align:center;color:red">没有查询到相关数据！</div>' }).datagrid('mergeCells', { index: 0, field: 'Skt_Factory_Name', colspan: 7 })
+                    //隐藏分页导航条，这个需要熟悉datagrid的html结构，直接用jquery操作DOM对象，easyui datagrid没有提供相关方法隐藏导航条
+                    $(this).closest('div.datagrid-wrap').find('div.datagrid-pager').hide();
+
+                    $("#emptymsgdiv").show();
+                }
+                    //如果通过调用reload方法重新加载数据有数据时显示出分页导航容器
+                else {
+                    $(this).closest('div.datagrid-wrap').find('div.datagrid-pager').show();
+                    $("#emptymsgdiv").hide();
+                }
+            },
+            toolbar: [
+         {
+             id: 'btnAdd',
+             text: '添加',
+             iconCls: 'icon-add',
+             handler: function () {
+                 ShowAddDialog();//实现添加记录的页面
+
+             }
+         }, '-',
+             {
+                 id: 'btnEdit',
+                 text: '修改',
+                 iconCls: 'icon-edit',
+                 handler: function () {
+                     ShowEditOrViewDialog();//实现修改记录的方法
+                 }
+             },
+             '-', {
+                 id: 'btnDelete',
+                 text: '删除',
+                 iconCls: 'icon-remove',
+                 handler: function () {
+                     Delete();//实现直接删除数据的方法
+                 }
+             },
+             '-', {
+                 id: 'btnView',
+                 text: '查看',
+                 iconCls: 'icon-search',
+                 handler: function () {
+                     ShowEditOrViewDialog("view");
+                 }
+             }, '-', {
+                 id: 'btnReload',
+                 text: '刷新',
+                 iconCls: 'icon-reload',
+                 handler: function () {
+                     //实现刷新栏目中的数据
+                     $("#grid").datagrid("reload");
+                 }
+             }],
+            onDblClickRow: function (rowIndex, rowData) {
+                $('#grid').datagrid('uncheckAll');
+                $('#grid').datagrid('checkRow', rowIndex);
+                ShowEditOrViewDialog();
+
+            },
+            onLoadError: function (error) {
+                alert(error);
+            }
+        });
+        var p = $('#grid').datagrid('getPager');
+        (p).pagination({
+            beforePageText: '第',//页数文本框前显示的汉字  
+            afterPageText: '页    共 {pages} 页',
+            displayMsg: '共{total}条数据',
+
+        });
+    }
+
+
+
+    $(function () {
+        //回车搜索
+        jQuery("#fmSearch").bind("keydown", function (e) {
+            var key = e.which;
+            if (key == 13) {
+                e.stopPropagation();
+                $('#btnSearch').click();
+                //stopPropagation(e);
+            }
+        });
+
+        $('#btnSearch').click(function () {
+            //得到用户输入的参数，取值有几种方式：$("#id").combobox('getValue'), $("#id").datebox('getValue'), $("#id").val()
+            var queryData = {};
+            var fields = $("#fmSearch").serializeArray();
+            jQuery.each(fields, function (i, field) {
+                queryData[field.name] = field.value;
+            });
+
+            InitGrid(queryData);
+            return false;
+        });
+
+        $('#btnSearch').click();
+    })
+</script>
+
+

@@ -1,0 +1,279 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>完成</title>
+    <style type="text/css">
+        body, p, dl, dd, h1, h2, h3, h4, h5, h6, pre, form, fieldset, legend {
+            margin: 0;
+        }
+
+        body {
+            background-color: #fff;
+            font-size: 12px;
+        }
+
+        body, input, textarea, select, button {
+            font-family: "lucida Grande",Verdana,"Microsoft YaHei";
+        }
+
+        .container {
+            min-height: 500px;
+        }
+
+        .header {
+            height: 62px;
+            overflow: hidden;
+            zoom: 1;
+            border-bottom: 1px solid #d6dfea;
+            background: #eff4fa;
+            min-width: 1070px;
+        }
+
+        .header_link {
+            padding-right: 40px;
+            overflow: hidden;
+            margin-top: 16px;
+            padding-right: 17px;
+            line-height: 30px;
+            text-align: right;
+            color: #b6b6b6;
+            margin-right: 50px;
+        }
+
+        .content {
+            width: 960px;
+            margin: 32px auto;
+            padding: 0 24px;
+        }
+
+        .footer {
+            min-width: 1070px;
+            position: fixed;
+            _position: static;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 2;
+            clear: both;
+            line-height: 36px;
+            text-align: center;
+            color: #b6b6b6;
+            background-color: #eff4fa;
+            border-top: 1px solid #d6dfea;
+        }
+
+        .header_logo {
+            margin-left: 40px;
+        }
+
+        .header_logo {
+            float: left;
+            _display: inline;
+            width: 182px;
+            height: 35px;
+            margin-top: 14px;
+            margin-left: 17px;
+            text-indent: -9999em;
+            background-size: 182px 35px;
+            background-repeat: no-repeat;
+            background-position: left center;
+            background-image: url(http://www.jbh-lp.com/images/default/20150615/9a88bd6a29477348.png);
+        }
+
+        .header a, .footer a {
+            color: #1d5494;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .content_left {
+            width: 620px;
+            float: left;
+        }
+
+        .content_right {
+            width: 320px;
+            float: right;
+            border: 1px solid #d6dfea;
+            padding: 5px 5px 45px 5px;
+            border-radius: 5px;
+            height: 406px;
+        }
+
+        .inputstyle {
+            top: 0px;
+            padding: 10px 40px 10px 10px;
+            left: 0px;
+            border-radius: 3px;
+            width: 232px;
+            height: 18px;
+            line-height: 18px;
+            border: 1px solid #d6dfea;
+            background: 0;
+            font-family: Verdana,Tahoma,Arial;
+            font-size: 16px;
+        }
+
+        .login_button {
+            background: none;
+            height: 40px;
+            line-height: 39px;
+            width: 100%;
+            outline: none;
+            font-weight: normal;
+        }
+
+        .login_button {
+            width: 115px;
+            height: 35px;
+            line-height: 35px;
+            border: 0;
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .switch_btn_focus {
+            color: #333;
+            height: 45px;
+            line-height: 45px;
+            outline: 0;
+        }
+
+        div.arrow-right {
+            width: 0px;
+            height: 0px;
+            border-top: 20px solid transparent;
+            border-bottom: 20px solid transparent;
+            border-left: 30px solid red;
+            font-size: 0px;
+            line-height: 0px;
+        }
+
+        div.arrow-right_gray {
+            width: 0px;
+            height: 0px;
+            border-top: 20px solid transparent;
+            border-bottom: 20px solid transparent;
+            border-left: 30px solid gray;
+            font-size: 0px;
+            line-height: 0px;
+        }
+
+        .arrow-up {
+            width: 0px;
+            height: 20px;
+            border-left: 30px solid transparent;
+            /*border-right: 20px solid transparent;*/
+            border-bottom: 20px solid red;
+            /*以下属性可以是IE5兼容*/
+            font-size: 0px;
+            line-height: 0px;
+        }
+
+        .arrow-down {
+            width: 0px;
+            height: 0px;
+            border-left: 30px solid transparent;
+            /*border-right: 30px solid transparent;*/
+            border-top: 20px solid red;
+            font-size: 0px;
+            line-height: 0px;
+        }
+
+        .arrow-up_gray {
+            width: 0px;
+            height: 20px;
+            border-left: 30px solid transparent;
+            /*border-right: 20px solid transparent;*/
+            border-bottom: 20px solid gray;
+            /*以下属性可以是IE5兼容*/
+            font-size: 0px;
+            line-height: 0px;
+        }
+
+        .arrow-down_gray {
+            width: 0px;
+            height: 0px;
+            border-left: 30px solid transparent;
+            /*border-right: 30px solid transparent;*/
+            border-top: 20px solid gray;
+            font-size: 0px;
+            line-height: 0px;
+        }
+
+        .products {
+            width: 200px;
+            height: 230px;
+            border: 1px solid #d6dfea;
+            float: left;
+            margin: 15px;
+            cursor: pointer;
+        }
+
+        .clear {
+            clear: both;
+        }
+    </style>
+
+    <style type="text/css">
+        .FillTable tr td {
+            padding-top: 10px;
+        }
+    </style>
+    <script src="/Scripts/JsonPMA/json/JsonPMA.js"></script>
+
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a class="header_logo" href="###">QQ邮箱</a>
+            <div class="header_link">
+                <a href="http://www.jbh-lp.com/" target="_blank">基本版</a>&nbsp;|&nbsp;
+                <a href="http://www.jbh-lp.com/" target="_blank">手机版</a>&nbsp;|&nbsp;
+                <a href="http://www.jbh-lp.com/" target="_blank">企业邮箱</a>
+            </div>
+        </div>
+
+        <div class="content">
+            <div style="padding-left: 40px;">
+                <div style="height: 40px; background-color: gray; width: 260px; float: left; color: black; line-height: 40px; font-weight: bold;">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 第一步&nbsp;&nbsp; 选择礼品
+
+                </div>
+                <div class="arrow-right_gray" style="float: left;"></div>
+
+                <div class="arrow-up_gray" style="float: left; margin-left: -20px;"></div>
+                <div class="arrow-down_gray" style="float: left; margin-left: -30px;"></div>
+                <div style="height: 40px; background-color: gray; width: 260px; float: left; color: black; line-height: 40px; font-weight: bold;">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 第二步&nbsp;&nbsp; 填写收货人信息
+                </div>
+                <div class="arrow-right_gray" style="float: left;"></div>
+
+                <div class="arrow-up" style="float: left; margin-left: -20px;"></div>
+                <div class="arrow-down" style="float: left; margin-left: -30px;"></div>
+                <div style="height: 40px; background-color: red; width: 280px; float: left; font-size: 15px; color: white; line-height: 40px; font-weight: bold;">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 第三步&nbsp;&nbsp; 完成兑换
+                </div>
+                <div class="arrow-right" style="float: left;"></div>
+            </div>
+            <div class="clear"></div>
+
+            <div style="width: 675px; margin: 0 auto;">
+                <h1 style="color:red;margin-top:100px;">恭喜您，礼品兑换成功！预计将在两个工作日内为您发送快递。</h1>
+            </div>
+
+        </div>
+        <div class="footer"><a href="http://www.jbh-lp.com/" target="_blank">关于鼎京百汇</a>&nbsp;|&nbsp;<a href="http://www.jbh-lp.com/" target="_blank">服务条款</a>&nbsp;|&nbsp;<a href="http://www.jbh-lp.com/" target="_blank">客服中心</a>&nbsp;|&nbsp;<a href="http://www.jbh-lp.com/" target="_blank">联系我们</a>&nbsp;|&nbsp;<a href="http://www.jbh-lp.com/" target="_blank">帮助中心</a>&nbsp;|&nbsp;<span class="gray">©1998 - 2015 JingBaiHui Inc. All Rights Reserved.</span></div>
+    </div>
+</body>
+</html>

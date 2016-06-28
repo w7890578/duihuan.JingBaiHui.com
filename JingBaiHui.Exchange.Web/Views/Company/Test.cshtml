@@ -1,0 +1,229 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Test</title>
+    <style type="text/css">
+        body, p, dl, dd, h1, h2, h3, h4, h5, h6, pre, form, fieldset, legend {
+            margin: 0;
+        }
+
+        body {
+            background-color: #fff;
+            font-size: 12px;
+        }
+
+        body, input, textarea, select, button {
+            font-family: "lucida Grande",Verdana,"Microsoft YaHei";
+        }
+
+        .container {
+            min-height: 500px;
+        }
+
+        .header {
+            height: 62px;
+            overflow: hidden;
+            zoom: 1;
+            border-bottom: 1px solid #d6dfea;
+            background: #eff4fa;
+            min-width: 1070px;
+        }
+
+        .header_link {
+            padding-right: 40px;
+            overflow: hidden;
+            margin-top: 16px;
+            padding-right: 17px;
+            line-height: 30px;
+            text-align: right;
+            color: #b6b6b6;
+            margin-right: 50px;
+        }
+
+        .content {
+            width: 960px;
+            margin: 32px auto;
+            padding: 0 24px;
+        }
+
+        .footer {
+            min-width: 1070px;
+            position: fixed;
+            _position: static;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 2;
+            clear: both;
+            line-height: 36px;
+            text-align: center;
+            color: #b6b6b6;
+            background-color: #eff4fa;
+            border-top: 1px solid #d6dfea;
+        }
+
+        .header_logo {
+            margin-left: 40px;
+        }
+
+        .header_logo {
+            float: left;
+            _display: inline;
+            width: 182px;
+            height: 35px;
+            margin-top: 14px;
+            margin-left: 17px;
+            text-indent: -9999em;
+            background-size: 182px 35px;
+            background-repeat: no-repeat;
+            background-position: left center;
+            background-image: url(http://www.jbh-lp.com/images/default/20150615/9a88bd6a29477348.png);
+        }
+
+        .header a, .footer a {
+            color: #1d5494;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .content_left {
+            width: 620px;
+            float: left;
+        }
+
+        .content_right {
+            width: 320px;
+            float: right;
+            border: 1px solid #d6dfea;
+            padding: 5px 5px 45px 5px;
+            border-radius: 5px;
+            height: 406px;
+        }
+
+        .inputstyle {
+            top: 0px;
+            padding: 10px 40px 10px 10px;
+            left: 0px;
+            border-radius: 3px;
+            width: 232px;
+            height: 18px;
+            line-height: 18px;
+            border: 1px solid #d6dfea;
+            background: 0;
+            font-family: Verdana,Tahoma,Arial;
+            font-size: 16px;
+        }
+
+        .login_button {
+            background: none;
+            height: 40px;
+            line-height: 39px;
+            width: 100%;
+            outline: none;
+            font-weight: normal;
+        }
+
+        .login_button {
+            width: 115px;
+            height: 35px;
+            line-height: 35px;
+            border: 0;
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .switch_btn_focus {
+            color: #333;
+            height: 45px;
+            line-height: 45px;
+            outline: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a class="header_logo" href="###">QQ邮箱</a>
+            <div class="header_link">
+                <a href="http://www.jbh-lp.com/" target="_blank">基本版</a>&nbsp;|&nbsp; 
+                <a href="http://www.jbh-lp.com/" target="_blank">手机版</a>&nbsp;|&nbsp;
+                <a href="http://www.jbh-lp.com/" target="_blank">企业邮箱</a>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="content_left">
+
+                <div style="width: 280px; height: 457px; float: left;">
+                    <p style="text-align: center; padding: 5px; font-size: 18px; font-weight: 400; color: #6F95C8;">企业内购商城</p>
+                    <div style="margin-top: 10px; padding: 4px; font-size: 14px; line-height: 23px;">&nbsp;&nbsp;以下省略五百字......</div>
+                </div>
+                <div style="width: 280px; height: 457px; margin-left: -1px; border-left: 1px #d6dfea solid; float: left;">
+                    <p style="text-align: center; padding: 5px; font-size: 18px; font-weight: 400; color: #6F95C8;">企业简介</p>
+                    <div style="margin-top: 10px; padding: 4px; font-size: 14px; line-height: 23px;">&nbsp;&nbsp;以下省略五百字......</div>
+                </div>
+            </div>
+            <div class="content_right">
+                <p style="text-align: center; font-size: 18px; font-weight: 400;" class="switch_btn_focus">&nbsp;兑&nbsp;&nbsp;换&nbsp;&nbsp;登&nbsp;&nbsp;录&nbsp;&nbsp;</p>
+                <div style="text-align: center;">
+                    <div style="margin: 10px;">
+                        <input type="text" class="inputstyle" placeholder="请输入卡号" name="CardNumber" id="CardNumber" />
+                    </div>
+                    <div style="margin: 10px;">
+                        <input type="password" class="inputstyle" placeholder="请输入密码" name="PassWord" id="PassWord" />
+                    </div>
+                    <div>
+                        <input id="btnLogin" type="button" value="登 录" class="login_button" style="border: 0; width: 286px; font-size: 18px; color: #fff; cursor: pointer; background-color: #5A98DE; margin-top: 10px;" />
+                    </div>
+                    <div style="text-align: left; margin: 20px; font-size: 14px; line-height: 23px;">
+                        <div>兑换步骤：</div>
+                        <div>啥地方收到房 说sddddddd啥地方收到房东说sddddddd啥地方收到房东说sddddddd啥地方收到房东说sddddddd啥地方收到房东说sddddddd啥地方收到房东说sddddddd啥地方收到房东说sdd dddddd啥地方收到房东说sddddddd啥地方收到房东说sddddddd啥地方收到房东说sddddddd啥地方收到房东说sddddddd</div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="footer"><a href="http://www.jbh-lp.com/" target="_blank">关于鼎京百汇</a>&nbsp;|&nbsp;<a href="http://www.jbh-lp.com/" target="_blank">服务条款</a>&nbsp;|&nbsp;<a href="http://www.jbh-lp.com/" target="_blank">客服中心</a>&nbsp;|&nbsp;<a href="http://www.jbh-lp.com/" target="_blank">联系我们</a>&nbsp;|&nbsp;<a href="http://www.jbh-lp.com/" target="_blank">帮助中心</a>&nbsp;|&nbsp;<span class="gray">©1998 - 2015 JingBaiHui Inc. All Rights Reserved.</span></div>
+    </div>
+
+</body>
+</html>
+
+
+<script src="/Scripts/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#btnLogin").click(function () {
+            var CardNumber = $.trim($("#CardNumber").val());
+            var PassWord = $.trim($("#PassWord").val());
+            if (CardNumber == "" || PassWord == "") {
+                alert("请填写卡号和密码！");
+                return false;
+            }
+            var currentUrl = window.location.href;
+            var pinyin = currentUrl.substr(currentUrl.lastIndexOf("/") + 1);
+            pinyin = pinyin.substr(0, pinyin.lastIndexOf('.'));
+
+            $.post("/Company/GiftCardLogin", { CardNumber: CardNumber, PassWord: PassWord, CompanyPinYin: pinyin }, function (data) {
+                if (data.Status) {
+                    window.location.href = "/Company/ChooseProgram";
+                }
+                else {
+                    alert(data.Msg);
+                    return false;
+                }
+            }, "json");
+        });
+    })
+</script>

@@ -1,0 +1,79 @@
+﻿@model JingBaiHui.Exchange.Model.Tenant
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>    <title>公司信息维护</title>
+    <script src="/Scripts/umeditor.js"></script>
+    <script src="/Scripts/easyui.js"></script>
+    <script src="/Scripts/common.js"></script>  
+   
+</head>
+<body>
+    <div>
+        <form id="fmDetail" method="post" novalidate enctype="multipart/form-data">
+            <input name="Id" type="hidden" value="@Model.Id" />
+            <div><a href="###" title="输入拼音或公司名称的英语单词，这个由客户决定。例如：中国移动 => yidong" class="easyui-tooltip">公司名称(英文)</a>:  <input type="text" class="easyui-validatebox" name="TenantLetter" required="required" value="@Model.TenantLetter"/></div>
+            <div style="margin-top:10px;">公司名称(中文): <input type="text" class="easyui-validatebox" name="TenantName" required="required" value="@Model.TenantName"/></div>
+            <div style="margin-top:10px;">登录页设置:<script type="text/plain" id="TenantLoginPage" style="width:100%;height:240px;">
+                             @Html.Raw(Model.TenantLoginPage)
+                            </script></div>
+           
+        </form>
+        <div style="text-align: center; padding-top: 10px" id="DivAddToolBar">
+            <a href="javascript:void(0)" class="easyui-linkbutton" id="btnAddOK" iconcls="icon-ok" onclick="SaveEntity()">确定</a>
+            <a href="/Admin/Tenant" class="easyui-linkbutton" iconcls="icon-cancel" ">取消</a>
+        </div>
+    </div>
+</body> 
+</html>
+<script type="text/javascript">
+    //实例化编辑器
+    var um = UM.getEditor('TenantLoginPage');    function getContent() {
+        var arr = [];
+        arr.push(UM.getEditor('TenantLoginPage').getContent());
+        return arr;
+    }
+    //保存
+    function SaveEntity() {
+        $('#fmDetail').form('submit', {
+            url: "/Tenant/Save",
+            onSubmit: function (param) {                //提交时触发
+                var flag = $(this).form('validate');    //是否通过验证 
+                var TenantLoginPage = getContent();
+                if (jQuery.trim(TenantLoginPage) == "") {
+                    alert("请设置登录页");
+                    flag = false;
+                }
+                else {
+                    param.TenantLoginPage = TenantLoginPage;
+                }
+                return flag;
+            },
+            success: function (res) {
+                res = JSON.parse(res);
+                if (res.Status) {
+                    $.messager.show({
+                        title: '操作提示',
+                        msg: '<img src="/Content/images/jingbaihui/ok.png" />' + '保存成功!',
+                        showType: 'show'
+                    });
+                    window.location.href = "/Admin/Tenant";
+                }
+                else {
+                    $.messager.show({
+                        title: '保存失败!',
+                        msg: '<div class="messager-icon messager-error"></div>' + res.Msg,
+                        showType: 'fade'
+                    });
+                    return false;
+                }
+            }
+        })
+    }
+</script>
